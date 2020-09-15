@@ -12,7 +12,6 @@ final class MainController extends AbstractController
 {
     /**
      * @Route ("/", methods={"GET"}, name="app_main")
-     * @return Response
      */
     public function index(): Response
     {
