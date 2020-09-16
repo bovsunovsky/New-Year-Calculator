@@ -14,21 +14,46 @@
 
     <nav class="collapse navbar-collapse" id="nav-items">
         <ul class="navbar-nav mr-auto">
+
+            {% if app.user %}
             <li class="nav-item">
-                <a class="nav-link" href="#">World</a>
+                <a class="nav-link" href="{{ path('app_main') }}">Home</a>
             </li>
+            {% if app.user %}
             <li class="nav-item">
-                <a class="nav-link" href="#">Sport</a>
+                <a class="nav-link" href="{{ path('user_index') }}">Users</a>
             </li>
+            {% endif %}
             <li class="nav-item">
-                <a class="nav-link" href="#">IT</a>
+                <a class="nav-link" href="{{ path('app_logout') }}">{{ app.user.username }}</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Science</a>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">World</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sport</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">IT</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Science</a>
+                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_register') }}">Sign In</a>
             </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">/</a>
+                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_login') }}">Log In</a>
+            </li>
+            {% endif %}
         </ul>
         <form class="form-inline my-2 my-md-0" action="" method="get">
 {#            <input class="form-control search" type="text" placeholder="Search news...">#}
         </form>
+
     </nav>
 </header>
