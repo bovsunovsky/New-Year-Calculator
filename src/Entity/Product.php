@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Exception\ProductShortDescriptionCannotBeEmptyException;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,7 +20,7 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="string", length=500, nullable=true)
@@ -31,22 +30,22 @@ class Product
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private string $image;
+    private ?string $image = '';
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
-    private float $price;
+    private int $price;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
-    private float $weight;
+    private int $weight;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private ?int $status = 0;
+    private int $status = 0;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -68,32 +67,165 @@ class Product
      */
     private \DateTimeImmutable $updatedAt;
 
-    public function __construct(string $title, string $image, float $price, float $weight, string $mainCategory, string $manufacturer, \DateTimeImmutable $createdAt, \DateTimeImmutable $updatedAt)
+    public function getId(): ?int
     {
-        $this->title = $title;
-        $this->image = $image;
-        $this->price = $price;
-        $this->weight = $weight;
-        $this->mainCategory = $mainCategory;
-        $this->manufacturer = $manufacturer;
-        $this->createdAt = $this->updatedAt = new \DateTimeImmutable();
+        return $this->id;
     }
 
-    public function addShortDescription(?string $shortDescription): self
+    public function setId(?int $id): Product
     {
-        $this->shortDescription = $shortDescription;
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->id = $id;
 
         return $this;
     }
 
-    public function setStatus(?int $status): self
+    public function getTitle(): ?string
     {
-        if (null === $this->shortDescription) {
-            throw new ProductShortDescriptionCannotBeEmptyException();
-        }
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): Product
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getShortDescription(): ?string
+    {
+        return $this->shortDescription;
+    }
+
+    public function setShortDescription(?string $shortDescription): Product
+    {
+        $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): Product
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): Product
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getWeight(): int
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(int $weight): Product
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): Product
+    {
         $this->status = $status;
 
         return $this;
     }
+
+    public function getMainCategory(): string
+    {
+        return $this->mainCategory;
+    }
+
+    public function setMainCategory(string $mainCategory): Product
+    {
+        $this->mainCategory = $mainCategory;
+
+        return $this;
+    }
+
+    public function getManufacturer(): string
+    {
+        return $this->manufacturer;
+    }
+
+    public function setManufacturer(string $manufacturer): Product
+    {
+        $this->manufacturer = $manufacturer;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): Product
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): Product
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+//    public function __construct(string $title, string $image, float $price, float $weight, string $mainCategory, string $manufacturer)
+//    {
+//        $this->title = $title;
+//        $this->image = $image;
+//        $this->price = $price;
+//        $this->weight = $weight;
+//        $this->mainCategory = $mainCategory;
+//        $this->manufacturer = $manufacturer;
+//        $this->createdAt = new \DateTimeImmutable();
+//        $this->updatedAt = $this->createdAt;
+//    }
+
+    // проекция сущности
+//    public function getProduct(): \App\ViewModel\Product
+//    {
+//        return new \App\ViewModel\Product(
+//            $this->id,
+//            $this->title,
+//            $this->shortDescription,
+//            $this->image,
+//            $this->price,
+//            $this->weight,
+//            $this->status,
+//            'Set Category here',
+//            $this->manufacturer,
+//            $this->createdAt,
+//            $this->updatedAt,
+//        );
+//    }
 }

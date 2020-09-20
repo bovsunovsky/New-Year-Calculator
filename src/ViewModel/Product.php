@@ -6,7 +6,7 @@ namespace App\ViewModel;
 
 final class Product
 {
-    private int $id;
+    private ?int $id;
     private string $title;
     private ?string $shortDescription;
     private string $image;
@@ -19,7 +19,7 @@ final class Product
     private \DateTimeImmutable $updatedAt;
 
     public function __construct(
-    int $id,
+    ?int $id,
     string $title,
     ?string $shortDescription,
     string $image,
@@ -31,8 +31,6 @@ final class Product
     \DateTimeImmutable $createdAt,
     \DateTimeImmutable $updatedAt
     ) {
-
-
         $this->id = $id;
         $this->title = $title;
         $this->shortDescription = $shortDescription;
@@ -100,6 +98,4 @@ final class Product
     {
         return $this->updatedAt;
     }
-
-
 }

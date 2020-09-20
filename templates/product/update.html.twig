@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование товара{% endblock %}
+
+{% block body %}
+    <h1>Редактирование товара</h1>
+    <p><img src="uploads/images/{{ product.image }}" style="width: 250px" ></p>
+    {{ include('product/_form.html.twig', {'button_label': 'Сохранить правки'}) }}
+    <a class="btn btn-primary" href="{{ path('app_product') }}">Вернутся</a>
+
+{% endblock %}
