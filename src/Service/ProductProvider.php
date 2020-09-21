@@ -32,11 +32,13 @@ class ProductProvider implements ProductProviderInterface
         return $this->productRepository->findAll();
     }
 
-    public function logicCreate($product, $imageFile, $imageDirectory)
+    public function logicCreate($product, $imageFile, $imageDirectory /*, $category */)
     {
         $this->imageSaver($imageFile, $product, $imageDirectory);
         $product->setCreatedAt(new \DateTimeImmutable());
         $product->setUpdatedAt(new \DateTimeImmutable());
+        $product->setMainCategory('need delete');
+//        $product->setCategory($category);
 
         return $product;
     }
@@ -45,6 +47,7 @@ class ProductProvider implements ProductProviderInterface
     {
         $this->imageSaver($imageFile, $product, $imageDirectory);
         $product->setUpdatedAt(new \DateTimeImmutable());
+//        $product->setCategory($category);
 
         return $product;
     }
@@ -52,7 +55,7 @@ class ProductProvider implements ProductProviderInterface
     private function imageSaver($imageFile, $product, $imageDirectory): void
     {
         if (null === $imageFile) {
-            if (null === $product->getImage()) {
+            if ('' === $product->getImage()) {
                 $product->setImage('default.png');
             }
         } else {
@@ -68,5 +71,10 @@ class ProductProvider implements ProductProviderInterface
             }
             $product->setImage($newFilename);
         }
+    }
+
+    public function getAllByCategory($categoryId)
+    {
+        return $this->productRepository->findBy(['category' => $categoryId]);
     }
 }

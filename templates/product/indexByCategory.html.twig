@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <h2> Все товары </h2>
+
+    <h2> Товары категории :  {{ productListByCategory.0.category.name }}</h2>
+    <a class="btn btn-primary" href="{{ path('app_product') }}">Вернуться ко всем</a>
     <a class="btn btn-primary" href="{{ path('app_product_new') }}">Добавить новый</a>
 
     <table class="table">
@@ -22,19 +24,19 @@
         </tr>
         </thead>
         <tbody>
-        {% for product in productList %}
+        {% for product in productListByCategory %}
             <tr>
                 <td>{{ product.id }}</td>
-                <td><img src="uploads/images/{{ product.image }}" style="width: 50px" ></td>
+                <td><img src="/uploads/images/{{ product.image }}" style="width: 50px" ></td>
                 <td>{{ product.title }}</td>
                 <td>{{ product.price/100 }}</td>
                 <td>{{ product.weight }}</td>
                 <td>{{ product.status }}</td>
-                <td><a href="{{ path('app_products_by_category', {'categoryId': product.category.id}) }}">{{ product.category.name }}</a></td>
+                <td>{{ product.category.name }}</td>
                 <td>{{ product.manufacturer }}</td>
                 <td>
-                    <a href="{{ path('app_product_update', {'id': product.id}) }}"><img src="img/edit.png"></a>
-                    <a href="{{path('product_delete', {'id': product.id})}}"><img src="img/delete.png"></a>
+                    <a href="{{ path('app_product_update', {'id': product.id}) }}"><img src="/img/edit.png"></a>
+                    <a href="{{path('product_delete', {'id': product.id})}}"><img src="/img/delete.png"></a>
                 </td>
             </tr>
         {% else %}

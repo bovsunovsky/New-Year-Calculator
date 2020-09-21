@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h2> Все категории </h2>
+    <a class="btn btn-primary" href="{{ path('app_create_category') }}">Добавить категорию</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in categoryList %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+
+                <td>
+                    <a href="{{ path('app_update_category', {'id': category.id}) }}"><img src="img/edit.png"></a>
+                    <a href="{{path('category_delete', {'id': category.id})}}"><img src="img/delete.png"></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

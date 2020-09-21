@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование товара{% endblock %}
+
+{% block body %}
+    <h1>Редактирование названия категории</h1>
+    {{ include('category/_form.html.twig', {'button_label': 'Сохранить правки'}) }}
+    <a class="btn btn-primary" href="{{ path('app_category') }}">Вернутся</a>
+{% endblock %}

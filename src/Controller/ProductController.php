@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Service\ProductProviderInterface;
@@ -94,5 +95,17 @@ final class ProductController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_product');
+    }
+
+    /**
+     * @Route("/products/category/{categoryId}", name="app_products_by_category")
+     */
+    public function productByCategory($categoryId): Response
+    {
+        $productListByCategory = $this->productProvider->getAllByCategory($categoryId);
+
+        return $this->render('product/indexByCategory.html.twig', [
+            'productListByCategory' => $productListByCategory,
+        ]);
     }
 }

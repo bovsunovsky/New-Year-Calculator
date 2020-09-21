@@ -17,13 +17,14 @@
 
             {% if app.user %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_product') }}">Home</a>
+                <a class="nav-link" href="{{ path('app_product') }}">Товары</a>
             </li>
-            {% if app.user %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('user_index') }}">Users</a>
+                <a class="nav-link" href="{{ path('app_category') }}">Категории</a>
             </li>
-            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('user_index') }}">Пользователи</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_logout') }}">{{ app.user.username }}</a>
             </li>
