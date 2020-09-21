@@ -28,8 +28,6 @@ final class Version20200917124057 extends AbstractMigration
              price int NOT NULL, 
              weight int NOT NULL, 
              status INT DEFAULT NULL, 
-             main_category VARCHAR(255) NOT NULL, 
-             manufacturer VARCHAR(255) NOT NULL, 
              created_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)', 
              updated_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)', 
             PRIMARY KEY(id)

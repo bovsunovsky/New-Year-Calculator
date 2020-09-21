@@ -48,16 +48,6 @@ class Product
     private int $status = 0;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private string $mainCategory;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private string $manufacturer;
-
-    /**
      * @ORM\Column(type="datetime_immutable")
      */
     private \DateTimeImmutable $createdAt;
@@ -72,6 +62,12 @@ class Product
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Manufacturer::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $manufacture;
 
     public function getId(): ?int
     {
@@ -157,30 +153,6 @@ class Product
         return $this;
     }
 
-    public function getMainCategory(): string
-    {
-        return $this->mainCategory;
-    }
-
-    public function setMainCategory(string $mainCategory): Product
-    {
-        $this->mainCategory = $mainCategory;
-
-        return $this;
-    }
-
-    public function getManufacturer(): string
-    {
-        return $this->manufacturer;
-    }
-
-    public function setManufacturer(string $manufacturer): Product
-    {
-        $this->manufacturer = $manufacturer;
-
-        return $this;
-    }
-
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
@@ -243,6 +215,18 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getManufacture(): ?Manufacturer
+    {
+        return $this->manufacture;
+    }
+
+    public function setManufacture(?Manufacturer $manufacture): self
+    {
+        $this->manufacture = $manufacture;
 
         return $this;
     }

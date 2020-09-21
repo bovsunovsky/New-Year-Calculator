@@ -33,7 +33,7 @@
                 <td>{{ product.weight }}</td>
                 <td>{{ product.status }}</td>
                 <td>{{ product.category.name }}</td>
-                <td>{{ product.manufacturer }}</td>
+                <td>{{ product.manufacture.name }}</td>
                 <td>
                     <a href="{{ path('app_product_update', {'id': product.id}) }}"><img src="/img/edit.png"></a>
                     <a href="{{path('product_delete', {'id': product.id})}}"><img src="/img/delete.png"></a>

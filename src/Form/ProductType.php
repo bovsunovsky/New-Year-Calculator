@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Entity\Manufacturer;
 use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -33,7 +34,10 @@ class ProductType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
             ])
-            ->add('manufacturer')
+            ->add('manufacture', EntityType::class, [
+                'class' => Manufacturer::class,
+                'choice_label' => 'name',
+            ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
                 'mapped' => false,

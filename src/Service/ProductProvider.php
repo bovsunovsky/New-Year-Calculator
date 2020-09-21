@@ -32,14 +32,11 @@ class ProductProvider implements ProductProviderInterface
         return $this->productRepository->findAll();
     }
 
-    public function logicCreate($product, $imageFile, $imageDirectory /*, $category */)
+    public function logicCreate($product, $imageFile, $imageDirectory)
     {
         $this->imageSaver($imageFile, $product, $imageDirectory);
         $product->setCreatedAt(new \DateTimeImmutable());
         $product->setUpdatedAt(new \DateTimeImmutable());
-        $product->setMainCategory('need delete');
-//        $product->setCategory($category);
-
         return $product;
     }
 
@@ -47,8 +44,6 @@ class ProductProvider implements ProductProviderInterface
     {
         $this->imageSaver($imageFile, $product, $imageDirectory);
         $product->setUpdatedAt(new \DateTimeImmutable());
-//        $product->setCategory($category);
-
         return $product;
     }
 
