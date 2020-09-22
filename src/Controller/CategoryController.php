@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/category")
+ */
 class CategoryController extends AbstractController
 {
     private CategoryProvider $categoryProvider;
@@ -22,7 +25,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/category", name="app_category")
+     * @Route("/index", name="app_category")
      */
     public function index(): Response
     {
@@ -34,7 +37,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/category/create" , name="app_create_category", methods={"GET","POST"})
+     * @Route("/create" , name="app_create_category", methods={"GET","POST"})
      */
     public function create(Request $request): Response
     {
@@ -43,6 +46,7 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $category = $this->categoryProvider->logicCreate($category);
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
@@ -56,7 +60,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/category/{id}", name="app_update_category", methods={"GET","POST"})
+     * @Route("/update/{id}", name="app_update_category", methods={"GET","POST"})
      */
     public function update(Request $request, Category $category): Response
     {
@@ -64,6 +68,7 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->categoryProvider->logicUpdate($category);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('app_category');
@@ -76,7 +81,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/category/{id}", name="category_delete", methods={"GET"})
+     * @Route("/delete/{id}", name="app_category_delete", methods={"GET"})
      */
     public function delete(Request $request, Category $category): Response
     {

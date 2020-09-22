@@ -40,6 +40,7 @@ class ProductType extends AbstractType
             ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
+                'attr' => ['class' => 'custom-file-input', 'id' => 'customFile'],
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [

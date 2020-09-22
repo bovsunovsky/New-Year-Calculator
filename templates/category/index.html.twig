@@ -22,8 +22,8 @@
                 <td>{{ category.name }}</td>
 
                 <td>
-                    <a href="{{ path('app_update_category', {'id': category.id}) }}"><img src="img/edit.png"></a>
-                    <a href="{{path('category_delete', {'id': category.id})}}"><img src="img/delete.png"></a>
+                    <a href="{{ path('app_update_category', {'id': category.id}) }}"><img src="/img/edit.png"></a>
+                    <a href="{{path('app_category_delete', {'id': category.id})}}"><img src="/img/delete.png"></a>
                 </td>
             </tr>
         {% else %}

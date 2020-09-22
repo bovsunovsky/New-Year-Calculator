@@ -72,4 +72,9 @@ class ProductProvider implements ProductProviderInterface
     {
         return $this->productRepository->findBy(['category' => $categoryId]);
     }
+
+    public function getAllByManufacturer($manufacturerId)
+    {
+        return $this->productRepository->findBy(['manufacture' => $manufacturerId]);
+    }
 }

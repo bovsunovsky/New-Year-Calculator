@@ -17,4 +17,17 @@ class CategoryProvider implements CategoryProviderInterface
     {
         return $this->categoryRepository->findAll();
     }
+
+    public function logicCreate($category)
+    {
+        $category->setCreatedAt(new \DateTimeImmutable());
+        $category->setUpdatedAt(new \DateTimeImmutable());
+        return $category;
+    }
+
+    public function logicUpdate($category)
+    {
+        $category->setUpdatedAt(new \DateTimeImmutable());
+        return $category;
+    }
 }

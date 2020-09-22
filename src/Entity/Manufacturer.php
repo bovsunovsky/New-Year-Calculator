@@ -29,9 +29,43 @@ class Manufacturer
      */
     private $products;
 
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private \DateTimeImmutable $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private \DateTimeImmutable $updatedAt;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+    }
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): Manufacturer
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): Manufacturer
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 
     public function getId(): ?int

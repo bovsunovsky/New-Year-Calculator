@@ -29,6 +29,16 @@ class Category
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private \DateTimeImmutable $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private \DateTimeImmutable $updatedAt;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -47,6 +57,29 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): Category
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): Category
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

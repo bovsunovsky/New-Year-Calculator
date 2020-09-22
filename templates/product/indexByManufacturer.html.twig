@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    <h2> Товары категории :  {{ productListByCategory.0.category.name }}</h2>
+    <h2> Товары производителя :  {{ productListByManufacturer.0.manufacture.name }}</h2>
     <a class="btn btn-primary" href="{{ path('app_product') }}">Вернуться ко всем</a>
     <a class="btn btn-primary" href="{{ path('app_product_new') }}">Добавить новый</a>
 
@@ -24,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for product in productListByCategory %}
+        {% for product in productListByManufacturer %}
             <tr>
                 <td>{{ product.id }}</td>
                 <td><img src="/uploads/images/{{ product.image }}" style="width: 50px" ></td>

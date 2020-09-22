@@ -13,8 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-//use App\Service\FileUploader;
-
+/**
+ * @Route("/product")
+ */
 final class ProductController extends AbstractController
 {
     private ProductProviderInterface $productProvider;
@@ -25,7 +26,7 @@ final class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/", name="app_product")
+     * @Route("/index", name="app_product")
      */
     public function index(): Response
     {
@@ -62,7 +63,7 @@ final class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_product_update", methods={"GET","POST"})
+     * @Route("/update/{id}", name="app_product_update", methods={"GET","POST"})
      */
     public function update(Request $request, Product $product): Response
     {
@@ -86,7 +87,7 @@ final class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/product/{id}", name="product_delete", methods={"GET"})
+     * @Route("/delete/{id}", name="app_product_delete", methods={"GET"})
      */
     public function delete(Request $request, Product $product): Response
     {
@@ -98,7 +99,7 @@ final class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/products/category/{categoryId}", name="app_products_by_category")
+     * @Route("/category/{categoryId}", name="app_products_by_category")
      */
     public function productByCategory($categoryId): Response
     {
@@ -106,6 +107,17 @@ final class ProductController extends AbstractController
 
         return $this->render('product/indexByCategory.html.twig', [
             'productListByCategory' => $productListByCategory,
+        ]);
+    }
+
+    /**
+     * @Route("/manufacture/{manufacturerId}", name="app_products_by_manufacturer")
+     */
+    public function productByManufacturer($manufacturerId): Response
+    {
+        $productListByManufacturer = $this->productProvider->getAllByManufacturer($manufacturerId);
+        return $this->render('product/indexByManufacturer.html.twig', [
+            'productListByManufacturer' => $productListByManufacturer,
         ]);
     }
 }

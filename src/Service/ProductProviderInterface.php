@@ -15,4 +15,8 @@ interface ProductProviderInterface
     public function logicCreate($product, $imageFile, $imageDirectory);
 
     public function logicUpdate($product, $imageFile, $imageDirectory);
+
+    public function getAllByCategory($categoryId);
+
+    public function getAllByManufacturer($manufacturerId);
 }
