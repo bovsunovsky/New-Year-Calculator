@@ -12,11 +12,26 @@ $ git clone https://github.com/bovsunovsky/New-Year-Calculator.git
 ```sh 
 $ composer install
 ```
-3. Run local server using [Symfony CLI](https://get.symfony.com/cli/installer )
+3. Configure database connection
 
 ```sh
-$ symfony serve
+    $ mv .env .env.local
 ```
+   
+4. Create and run docker containers
+
+```sh
+    $ docker-compose up -d --build
+```
+   
+5. Create a database and run migrations
+
+```sh
+    $ docker-compose exec php-fpm bash
+    $ ./bin/console doctrine:database:create
+    $ ./bin/console doctrine:migrations:migrate
+```   
+
 
 ## Code style
 
