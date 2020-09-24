@@ -29,7 +29,6 @@ class Manufacturer
      */
     private $products;
 
-
     /**
      * @ORM\Column(type="datetime_immutable")
      */
@@ -44,6 +43,7 @@ class Manufacturer
     {
         $this->products = new ArrayCollection();
     }
+
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;

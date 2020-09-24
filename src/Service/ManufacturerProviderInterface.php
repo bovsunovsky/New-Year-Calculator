@@ -7,6 +7,8 @@ namespace App\Service;
 interface ManufacturerProviderInterface
 {
     public function getList();
+
     public function logicCreate($manufacturer);
+
     public function logicUpdate($manufacturer);
 }

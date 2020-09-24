@@ -88,6 +88,7 @@ class ManufacturerController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($manufacturer);
         $em->flush();
+
         return $this->redirectToRoute('app_manufacturer');
     }
 }

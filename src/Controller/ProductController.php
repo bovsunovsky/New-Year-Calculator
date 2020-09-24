@@ -116,6 +116,7 @@ final class ProductController extends AbstractController
     public function productByManufacturer($manufacturerId): Response
     {
         $productListByManufacturer = $this->productProvider->getAllByManufacturer($manufacturerId);
+
         return $this->render('product/indexByManufacturer.html.twig', [
             'productListByManufacturer' => $productListByManufacturer,
         ]);

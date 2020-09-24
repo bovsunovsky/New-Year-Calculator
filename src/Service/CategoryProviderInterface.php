@@ -7,6 +7,8 @@ namespace App\Service;
 interface CategoryProviderInterface
 {
     public function getAll();
+
     public function logicCreate($category);
+
     public function logicUpdate($category);
 }

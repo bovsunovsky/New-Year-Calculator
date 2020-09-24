@@ -37,6 +37,7 @@ class ProductProvider implements ProductProviderInterface
         $this->imageSaver($imageFile, $product, $imageDirectory);
         $product->setCreatedAt(new \DateTimeImmutable());
         $product->setUpdatedAt(new \DateTimeImmutable());
+
         return $product;
     }
 
@@ -44,6 +45,7 @@ class ProductProvider implements ProductProviderInterface
     {
         $this->imageSaver($imageFile, $product, $imageDirectory);
         $product->setUpdatedAt(new \DateTimeImmutable());
+
         return $product;
     }
 

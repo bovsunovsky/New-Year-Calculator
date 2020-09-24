@@ -22,12 +22,14 @@ class CategoryProvider implements CategoryProviderInterface
     {
         $category->setCreatedAt(new \DateTimeImmutable());
         $category->setUpdatedAt(new \DateTimeImmutable());
+
         return $category;
     }
 
     public function logicUpdate($category)
     {
         $category->setUpdatedAt(new \DateTimeImmutable());
+
         return $category;
     }
 }
