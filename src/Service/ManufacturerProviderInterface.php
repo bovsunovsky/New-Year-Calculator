@@ -8,7 +8,7 @@ interface ManufacturerProviderInterface
 {
     public function getList();
 
-    public function logicCreate($manufacturer);
+    public function create($manufacturer);
 
-    public function logicUpdate($manufacturer);
+    public function update($manufacturer);
 }

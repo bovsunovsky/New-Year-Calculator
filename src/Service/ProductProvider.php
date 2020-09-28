@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\Product;
 use App\Exception\BadImageException;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -17,22 +18,12 @@ class ProductProvider implements ProductProviderInterface
         $this->productRepository = $productRepository;
     }
 
-    public function getList()
-    {
-        // TODO: Implement getList() method.
-    }
-
-    public function getForSlider()
-    {
-        // TODO: Implement getForSlider() method.
-    }
-
     public function getAll()
     {
         return $this->productRepository->findAll();
     }
 
-    public function logicCreate($product, $imageFile, $imageDirectory)
+    public function create($product, $imageFile, $imageDirectory): Product
     {
         $this->imageSaver($imageFile, $product, $imageDirectory);
         $product->setCreatedAt(new \DateTimeImmutable());
@@ -41,7 +32,7 @@ class ProductProvider implements ProductProviderInterface
         return $product;
     }
 
-    public function logicUpdate($product, $imageFile, $imageDirectory)
+    public function update($product, $imageFile, $imageDirectory): Product
     {
         $this->imageSaver($imageFile, $product, $imageDirectory);
         $product->setUpdatedAt(new \DateTimeImmutable());

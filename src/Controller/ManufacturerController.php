@@ -46,7 +46,7 @@ final class ManufacturerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manufacturer = $this->manufacturerProvider->logicCreate($manufacturer);
+            $manufacturer = $this->manufacturerProvider->create($manufacturer);
             $em = $this->getDoctrine()->getManager();
             $em->persist($manufacturer);
             $em->flush();
@@ -68,7 +68,7 @@ final class ManufacturerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->manufacturerProvider->logicUpdate($manufacturer);
+            $this->manufacturerProvider->update($manufacturer);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('app_manufacturer');

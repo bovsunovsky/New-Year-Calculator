@@ -8,7 +8,7 @@ interface CategoryProviderInterface
 {
     public function getAll();
 
-    public function logicCreate($category);
+    public function create($category);
 
-    public function logicUpdate($category);
+    public function update($category);
 }

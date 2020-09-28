@@ -49,7 +49,7 @@ final class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('image')->getData();
             $imageDirectory = $this->getParameter('images_directory');
-            $product = $this->productProvider->logicCreate($product, $imageFile, $imageDirectory);
+            $product = $this->productProvider->create($product, $imageFile, $imageDirectory);
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -73,7 +73,7 @@ final class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('image')->getData();
             $imageDirectory = $this->getParameter('images_directory');
-            $this->productProvider->logicUpdate($product, $imageFile, $imageDirectory);
+            $this->productProvider->update($product, $imageFile, $imageDirectory);
 
             $this->getDoctrine()->getManager()->flush();
 

@@ -46,7 +46,7 @@ final class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $category = $this->categoryProvider->logicCreate($category);
+            $category = $this->categoryProvider->create($category);
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
@@ -68,7 +68,7 @@ final class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->categoryProvider->logicUpdate($category);
+            $this->categoryProvider->update($category);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('app_category');

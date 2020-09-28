@@ -6,15 +6,11 @@ namespace App\Service;
 
 interface ProductProviderInterface
 {
-    public function getList();
-
-    public function getForSlider();
-
     public function getAll();
 
-    public function logicCreate($product, $imageFile, $imageDirectory);
+    public function create($product, $imageFile, $imageDirectory);
 
-    public function logicUpdate($product, $imageFile, $imageDirectory);
+    public function update($product, $imageFile, $imageDirectory);
 
     public function getAllByCategory($categoryId);
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\Manufacturer;
 use App\Repository\ManufacturerRepository;
 
 class ManufacturerProvider implements ManufacturerProviderInterface
@@ -20,7 +21,7 @@ class ManufacturerProvider implements ManufacturerProviderInterface
         return $this->manufacturerRepository->findAll();
     }
 
-    public function logicCreate($manufacturer)
+    public function create($manufacturer): Manufacturer
     {
         $manufacturer->setCreatedAt(new \DateTimeImmutable());
         $manufacturer->setUpdatedAt(new \DateTimeImmutable());
@@ -28,7 +29,7 @@ class ManufacturerProvider implements ManufacturerProviderInterface
         return $manufacturer;
     }
 
-    public function logicUpdate($manufacturer)
+    public function update($manufacturer): Manufacturer
     {
         $manufacturer->setUpdatedAt(new \DateTimeImmutable());
 

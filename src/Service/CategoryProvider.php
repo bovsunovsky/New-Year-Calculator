@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Repository\CategoryRepository;
 
 class CategoryProvider implements CategoryProviderInterface
@@ -18,7 +19,7 @@ class CategoryProvider implements CategoryProviderInterface
         return $this->categoryRepository->findAll();
     }
 
-    public function logicCreate($category)
+    public function create($category): Category
     {
         $category->setCreatedAt(new \DateTimeImmutable());
         $category->setUpdatedAt(new \DateTimeImmutable());
@@ -26,7 +27,7 @@ class CategoryProvider implements CategoryProviderInterface
         return $category;
     }
 
-    public function logicUpdate($category)
+    public function update($category): Category
     {
         $category->setUpdatedAt(new \DateTimeImmutable());
 

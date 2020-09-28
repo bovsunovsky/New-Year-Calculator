@@ -22,7 +22,7 @@ class Manufacturer
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="manufacture")
@@ -107,7 +107,6 @@ class Manufacturer
     {
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
-            // set the owning side to null (unless already changed)
             if ($product->getManufacture() === $this) {
                 $product->setManufacture(null);
             }
