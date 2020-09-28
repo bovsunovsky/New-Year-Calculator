@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\DTO\CategoryDto;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -39,8 +40,9 @@ class Category
      */
     private \DateTimeImmutable $updatedAt;
 
-    public function __construct()
+    public function __construct(CategoryDto $categoryDto)
     {
+        $this->name = $categoryDto->getName();
         $this->products = new ArrayCollection();
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Dto\ManufacturerDto as ManufacturerDto;
 use App\Repository\ManufacturerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -17,7 +18,7 @@ class Manufacturer
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -39,8 +40,9 @@ class Manufacturer
      */
     private \DateTimeImmutable $updatedAt;
 
-    public function __construct()
+    public function __construct(ManufacturerDto $dto)
     {
+        $this->name = $dto->getName();
         $this->products = new ArrayCollection();
     }
 
@@ -78,7 +80,7 @@ class Manufacturer
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): Manufacturer
     {
         $this->name = $name;
 

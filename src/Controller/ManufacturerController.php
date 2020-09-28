@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/manufacturer")
@@ -39,17 +40,22 @@ final class ManufacturerController extends AbstractController
     /**
      * @Route("/create", name="app_create_manufacturer", methods={"GET", "POST"})
      */
-    public function create(Request $request): Response
+    public function create(Request $request, ValidatorInterface $validator): Response
     {
-        $manufacturer = new Manufacturer();
-        $form = $this->createForm(ManufacturerType::class, $manufacturer);
+        $form = $this->createForm(ManufacturerType::class, null, [
+            'action' => $this->generateUrl('app_create_manufacturer'),
+        ]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $manufacturer = $this->manufacturerProvider->create($manufacturer);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($manufacturer);
-            $em->flush();
+            $errors = $form->getErrors();
+
+            if (0 === count($errors)) {
+                $this->manufacturerProvider->create($form->getData());
+            } else {
+                foreach ($errors as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
+            }
 
             return $this->redirectToRoute('app_manufacturer');
         }
@@ -62,14 +68,24 @@ final class ManufacturerController extends AbstractController
     /**
      * @Route("/update/{id}", name="app_update_manufacturer", methods={"GET", "POST"})
      */
-    public function update(Request $request, Manufacturer $manufacturer): Response
+    public function update(Request $request, int $id): Response
     {
-        $form = $this->createForm(ManufacturerType::class, $manufacturer);
+        $manufacturer = $this->manufacturerProvider->getById($id);
+        $form = $this->createForm(ManufacturerType::class, $manufacturer, [
+            'action' => $this->generateUrl('app_update_manufacturer', ['id' => $id]),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->manufacturerProvider->update($manufacturer);
-            $this->getDoctrine()->getManager()->flush();
+            $errors = $form->getErrors();
+
+            if (0 === count($errors)) {
+                $this->manufacturerProvider->update($form->getData(), $id);
+            } else {
+                foreach ($errors as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
+            }
 
             return $this->redirectToRoute('app_manufacturer');
         }
@@ -83,11 +99,9 @@ final class ManufacturerController extends AbstractController
     /**
      * @Route("/delete/{id}", name="app_delete_manufacturer", methods={"GET"})
      */
-    public function delete(Request $request, Manufacturer $manufacturer): Response
+    public function delete(Request $request, int $id): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($manufacturer);
-        $em->flush();
+        $this->manufacturerProvider->delete($id);
 
         return $this->redirectToRoute('app_manufacturer');
     }

@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/category")
@@ -39,17 +40,23 @@ final class CategoryController extends AbstractController
     /**
      * @Route("/create" , name="app_create_category", methods={"GET","POST"})
      */
-    public function create(Request $request): Response
+    public function create(Request $request, ValidatorInterface $validator): Response
     {
-        $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(CategoryType::class, null, [
+            'action' => $this->generateUrl('app_create_category'),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $category = $this->categoryProvider->create($category);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($category);
-            $em->flush();
+            $errors = $form->getErrors();
+
+            if (0 === count($errors)) {
+                $this->categoryProvider->create($form->getData());
+            } else {
+                foreach ($errors as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
+            }
 
             return $this->redirectToRoute('app_category');
         }
@@ -62,14 +69,24 @@ final class CategoryController extends AbstractController
     /**
      * @Route("/update/{id}", name="app_update_category", methods={"GET","POST"})
      */
-    public function update(Request $request, Category $category): Response
+    public function update(Request $request, int $id): Response
     {
-        $form = $this->createForm(CategoryType::class, $category);
+        $category = $this->categoryProvider->getById($id);
+        $form = $this->createForm(CategoryType::class, $category, [
+            'action' => $this->generateUrl('app_update_category', ['id' => $id]),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->categoryProvider->update($category);
-            $this->getDoctrine()->getManager()->flush();
+            $errors = $form->getErrors();
+
+            if (0 === count($errors)) {
+                $this->categoryProvider->update($form->getData(), $id);
+            } else {
+                foreach ($errors as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
+            }
 
             return $this->redirectToRoute('app_category');
         }
@@ -83,11 +100,9 @@ final class CategoryController extends AbstractController
     /**
      * @Route("/delete/{id}", name="app_category_delete", methods={"GET"})
      */
-    public function delete(Request $request, Category $category): Response
+    public function delete(Request $request, int $id): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($category);
-        $entityManager->flush();
+        $this->categoryProvider->delete($id);
 
         return $this->redirectToRoute('app_category');
     }
