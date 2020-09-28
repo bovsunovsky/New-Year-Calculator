@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/category")
  */
-class CategoryController extends AbstractController
+final class CategoryController extends AbstractController
 {
     private CategoryProvider $categoryProvider;
 

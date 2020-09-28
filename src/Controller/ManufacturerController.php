@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/manufacturer")
  */
-class ManufacturerController extends AbstractController
+final class ManufacturerController extends AbstractController
 {
     private ManufacturerProvider $manufacturerProvider;
 
