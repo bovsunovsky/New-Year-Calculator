@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Добавление{% endblock %}
+
+{% block body %}
+    <h1>Добавление новой категории</h1>
+    <a class="btn btn-primary" href="{{ path('app_category') }}">Вернутся</a>
+    {{ include('category/_form.html.twig') }}
+{% endblock %}
