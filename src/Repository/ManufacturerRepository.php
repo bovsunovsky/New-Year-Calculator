@@ -18,5 +18,4 @@ class ManufacturerRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Manufacturer::class);
     }
-
 }
