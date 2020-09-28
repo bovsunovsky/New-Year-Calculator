@@ -49,6 +49,7 @@ class ManufacturerProvider implements ManufacturerProviderInterface
     public function getById(int $id): ManufacturerDto
     {
         $manufacturer = $this->manufacturerRepository->find($id);
+
         return new ManufacturerDto($manufacturer->getName());
     }
 
