@@ -16,7 +16,7 @@ final class UserController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/index", name="user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
