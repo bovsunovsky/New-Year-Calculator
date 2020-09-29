@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h2> Все товары </h2>
+    <a class="btn btn-primary" href="{{ path('app_product_new') }}">Добавить новый</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Фото</th>
+            <th>Название</th>
+            <th>Цена, грн</th>
+            <th>Вес, гр.</th>
+            <th>Наличие</th>
+            <th>Категория</th>
+            <th>Производитель</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in productList %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td><img src="/uploads/images/{{ product.image }}" style="width: 50px" ></td>
+                <td>{{ product.title }}</td>
+                <td>{{ product.price/100 }}</td>
+                <td>{{ product.weight }}</td>
+                <td>{{ product.status }}</td>
+                <td><a href="{{ path('app_products_by_category', {'categoryId': product.category.id}) }}" style="color: blue">{{ product.category.name }}</a></td>
+                <td><a href="{{ path('app_products_by_manufacturer', {'manufacturerId': product.manufacture.id}) }}" style="color: blue">{{ product.manufacture.name }}</a></td>
+                <td>
+                    <a href="{{ path('app_product_update', {'id': product.id}) }}"><img src="/img/edit.png"></a>
+                    <a href="{{path('app_product_delete', {'id': product.id})}}"><img src="/img/delete.png"></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
